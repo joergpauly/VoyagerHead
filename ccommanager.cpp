@@ -27,20 +27,51 @@
 ********************************************************************/
 #include "ccommanager.h"
 
-CComManager::CComManager()
+CComManager::CComManager(QObject *parent) : QObject(parent)
 {
+    m_Port = new QSerialPort(this);
+    connect(m_Port, SIGNAL(readyRead()), this, SIGNAL(readData()));
     m_VECport = FindModule("VEC");
     m_VEMport = FindModule("VEM");
+}
+
+CComManager::~CComManager()
+{
+
+}
+
+void CComManager::readData()
+{
+    m_Data = m_Port->readAll();
 }
 
 QSerialPort *CComManager::FindModule(QString pModul)
 {
     QList<QSerialPortInfo> lPortlist = QSerialPortInfo::availablePorts();
-    QList<QString> lPortnames;
+    QList<QString> lPNl;
     for(int i = 0; i < lPortlist.count(); i++)
     {
-        QString lName = lPortlist.at(i).portName();
-        lPortnames.append(lName);
+        lPNl.append(lPortlist.at(i).portName());
+        if(lPortlist.at(i).portName().left(6) != "ttyACM")
+        {
+            lPortlist.removeAt(i);
+        }
     }
+
+    if(lPortlist.count() > 0)
+    {
+        for(int i = 0; i < lPortlist.count(); i++)
+        {
+            m_Port = new QSerialPort(lPortlist.at(i));
+            m_Port->setBaudRate(QSerialPort::Baud9600);
+            if(m_Port->open(QIODevice::ReadWrite))
+            {
+                QByteArray lar = pModul.toLatin1();
+                lar.append("HELLO");
+                m_Port->write(lar);
+            }
+        }
+    }
+    return 0;
 }
 

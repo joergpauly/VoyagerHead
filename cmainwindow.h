@@ -29,6 +29,7 @@
 #define CMAINWINDOW_H
 
 #include <QMainWindow>
+#include <wiringPi.h>
 
 #include "ccommanager.h"
 

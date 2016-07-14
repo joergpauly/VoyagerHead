@@ -30,20 +30,27 @@
 
 #include <QObject>
 #include <QString>
-#include <QSerialPort>
-#include <QSerialPortInfo>
+#include <QtSerialPort/QSerialPort>
+#include <QtSerialPort/QSerialPortInfo>
+#include <QByteArray>
 #include <QList>
 #include <wiringSerial.h>
 
-class CComManager
+class CComManager : public QObject
 {
+    Q_OBJECT
+
     QSerialPort* m_VECport;
     QSerialPort* m_VEMport;
+    QByteArray   m_Data;
 
+    QSerialPort *m_Port;
 
 public:
-    CComManager();
-
+    explicit CComManager(QObject *parent = 0);
+    ~CComManager();
+public slots:
+    void readData();
 private:
     QSerialPort *FindModule(QString pModul);
 
