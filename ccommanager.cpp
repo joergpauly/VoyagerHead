@@ -30,7 +30,7 @@
 CComManager::CComManager(QObject *parent) : QObject(parent)
 {
     m_Port = new QSerialPort(this);
-    connect(m_Port, SIGNAL(readyRead()), this, SIGNAL(readData()));
+    connect(m_Port, SIGNAL(readyRead()), this, SLOT(readData()));
     m_VECport = FindModule("VEC");
     m_VEMport = FindModule("VEM");
 }
@@ -62,8 +62,7 @@ QSerialPort *CComManager::FindModule(QString pModul)
     {
         for(int i = 0; i < lPortlist.count(); i++)
         {
-            m_Port = new QSerialPort(lPortlist.at(i));
-            m_Port->setBaudRate(QSerialPort::Baud9600);
+            m_Port = new QSerialPort(lPortlist.at(i));            
             if(m_Port->open(QIODevice::ReadWrite))
             {
                 QByteArray lar = pModul.toLatin1();
