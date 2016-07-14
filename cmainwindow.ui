@@ -11,7 +11,10 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>CMainWindow</string>
+   <string>VoyagerHead</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(255, 128, 0);</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -24,6 +27,13 @@
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(170, 85, 0);
+background-color: rgb(216, 108, 0);</string>
         </property>
         <property name="text">
          <string>PushButton</string>
