@@ -33,6 +33,7 @@ CMainWindow::CMainWindow(QWidget *parent) :
     ui(new Ui::CMainWindow)
 {
     ui->setupUi(this);
+    CComManager* lCom = new CComManager();
 }
 
 CMainWindow::~CMainWindow()

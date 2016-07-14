@@ -29,5 +29,18 @@
 
 CComManager::CComManager()
 {
-
+    m_VECport = FindModule("VEC");
+    m_VEMport = FindModule("VEM");
 }
+
+QSerialPort *CComManager::FindModule(QString pModul)
+{
+    QList<QSerialPortInfo> lPortlist = QSerialPortInfo::availablePorts();
+    QList<QString> lPortnames;
+    for(int i = 0; i < lPortlist.count(); i++)
+    {
+        QString lName = lPortlist.at(i).portName();
+        lPortnames.append(lName);
+    }
+}
+

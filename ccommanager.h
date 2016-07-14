@@ -30,14 +30,22 @@
 
 #include <QObject>
 #include <QString>
-#include <wiringPi.h>
+#include <QSerialPort>
+#include <QSerialPortInfo>
+#include <QList>
+#include <wiringSerial.h>
 
 class CComManager
 {
+    QSerialPort* m_VECport;
+    QSerialPort* m_VEMport;
+
+
 public:
     CComManager();
 
-    bool CheckModuleAlive(QString* pModul);
+private:
+    QSerialPort *FindModule(QString pModul);
 
 };
 

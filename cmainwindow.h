@@ -30,6 +30,8 @@
 
 #include <QMainWindow>
 
+#include "ccommanager.h"
+
 namespace Ui {
 class CMainWindow;
 }
